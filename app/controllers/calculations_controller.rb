@@ -37,8 +37,12 @@ class CalculationsController < ApplicationController
     # The number of years the user input is in the integer @years.
     # The principal value the user input is in the decimal @principal.
     # ================================================================================
+    r = @apr/1200
+    n = @years*12
+    d = (1+r)**n - 1
+    num =@principal*r*(1+r)**n
 
-    @monthly_payment = "Replace this string with your answer."
+    @monthly_payment = num/d
 
     # ================================================================================
     # Your code goes above.
