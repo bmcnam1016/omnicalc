@@ -87,27 +87,59 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @minimum = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @maximum = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @range = "Replace this string with your answer."
+    @range = @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    if @count.odd? == true
+        @median = @sorted_numbers[(@count)/2]
+    else
+        @median = (@sorted_numbers[(@count-1)/2] + @sorted_numbers[@count/2])/2
+    end
 
-    @sum = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mean = "Replace this string with your answer."
+    @mean = @sum/@count
 
-    @variance = "Replace this string with your answer."
+def variance(numlist)
+ variance = 0
+ numlist.each do |number|
+ variance = variance + ((number - @mean) ** 2) / @count
+ end
+ return variance
+ end
 
-    @standard_deviation = "Replace this string with your answer."
+@variance = variance(@numbers)
 
-    @mode = "Replace this string with your answer."
+def standard_deviation(list_of_numbers)
+  return variance(list_of_numbers) ** (0.5)
+end
+
+@standard_deviation = standard_deviation(@numbers)
+
+  def mode(array)
+      counter = Hash.new(0)
+      array.each do |i|
+        counter[i] += 1
+    end
+
+    mode_array = []
+
+    counter.each do |k, v|
+        if v == counter.values.max
+          mode_array << k
+      end
+    end
+    mode_array.sort
+    end
+
+    @mode = mode(@numbers)
 
     # ================================================================================
     # Your code goes above.
